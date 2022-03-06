@@ -1,0 +1,17 @@
+#!/bin/bash
+
+backup_files="*.csv.ovr *.csv.rpl "
+dest="/.../backup"
+
+# Create archive filename.
+day=$(date +%Y%m%d)
+hostname=$(hostname -s)
+archive_file="$hostname-$day.tgz"
+log_file="$hostname-$day.txt"
+log=$dest/$log_file
+
+# Print start status message.
+echo "Backing up $backup_files to $dest/$archive_file" > $log
+tar czf $dest/$archive_file $backup_files >> $log
+echo "Backup finished"  >> $log
+ls -lh $dest  >> $log
